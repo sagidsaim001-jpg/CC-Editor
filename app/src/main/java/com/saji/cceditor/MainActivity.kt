@@ -545,11 +545,11 @@ private fun EditorScreen(
                     exportCaptionedMedia(
                         context, asset, cues, style,
                         onStarted = { showExporting = true },
-                        onCompleted = {
+                        onExportCompleted = {
                             showExporting = false
                             message = if (Build.VERSION.SDK_INT >= 29) "Video saved in Movies / CC Editor" else "Video saved to app Movies folder"
                         },
-                        onError = {
+                        onExportError = {
                             showExporting = false
                             message = "Export failed: $it"
                         }
