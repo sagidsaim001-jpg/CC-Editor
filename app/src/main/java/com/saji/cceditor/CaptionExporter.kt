@@ -60,10 +60,10 @@ class CaptionOverlay(
             else -> Typeface.NORMAL
         }
         val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = runCatching { Color.parseColor(style.colorHex) }.getOrDefault(Color.WHITE)
+            color = runCatching { Color.parseColor(this@CaptionOverlay.style.colorHex) }.getOrDefault(Color.WHITE)
             this.textSize = textSize
             typeface = Typeface.create("sans-serif", typefaceStyle)
-            isUnderlineText = style.underline
+            isUnderlineText = this@CaptionOverlay.style.underline
             textAlign = Paint.Align.LEFT
             setShadowLayer(2f, 0f, 2f, Color.BLACK)
         }
