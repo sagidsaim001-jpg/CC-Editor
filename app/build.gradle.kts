@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.saji.cceditor"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.saji.cceditor"
         minSdk = 26
