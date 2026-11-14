@@ -101,8 +101,8 @@ fun exportCaptionedMedia(
     cues: List<CaptionCue>,
     style: CaptionStyleState,
     onStarted: () -> Unit,
-    onCompleted: (String) -> Unit,
-    onError: (String) -> Unit
+    onExportCompleted: (String) -> Unit,
+    onExportError: (String) -> Unit
 ) {
     val tempFile = File(context.cacheDir, "cc-export-" + System.currentTimeMillis() + ".mp4")
     val mediaItemBuilder = MediaItem.Builder().setUri(asset.uri)
@@ -118,9 +118,9 @@ fun exportCaptionedMedia(
         override fun onCompleted(composition: androidx.media3.transformer.Composition, exportResult: ExportResult) {
             try {
                 val saved = saveToGallery(context, tempFile)
-                onCompleted(saved)
+                onExportCompleted(saved)
             } catch (error: Exception) {
-                onError(error.message ?: "Export save failed")
+                onExportError(error.message ?: "Export save failed")
             }
         }
 
@@ -129,7 +129,7 @@ fun exportCaptionedMedia(
             exportResult: ExportResult,
             exportException: ExportException
         ) {
-            onError(exportException.message ?: "Video export failed")
+            onExportError(exportException.message ?: "Video export failed")
             tempFile.delete()
         }
     }
@@ -142,7 +142,7 @@ fun exportCaptionedMedia(
         transformer.start(editedItem, tempFile.absolutePath)
     } catch (error: Exception) {
         tempFile.delete()
-        onError(error.message ?: "Could not start export")
+        onExportError(error.message ?: "Could not start export")
     }
 }
 
